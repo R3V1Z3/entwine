@@ -1,5 +1,5 @@
 # Entwine
-Entwine lets you play through interactive stories told via Markdown documents. It's little more than a viewer for Markdown documents, but one that lets you browse them in style, specifically designed to aid in progression through interactive stories.
+Entwine lets you play through interactive stories told via Markdown documents. It's little more than a viewer for Markdown documents, but one that lets you browse them in style, in an animated way designed for interactive storytelling.
 
 - [What's this Markdown stuff?](#what-is-markdown)
 - [More about Entwine](#how-entwine-works)
@@ -11,12 +11,10 @@ Markdown is a simple language for plain text that uses a number of accessible sy
 - [Great, tell me more about Entwine.](#how-entwine-works)
 
 ## Markdown Example
-Maybe it'll help to explain it through a comparison with Microsoft Word. In word, you'd normally type some text and then highlight and add bold or italic styling. In most Markdown editors, you simply add a symbol before and maybe after your typed text. No mouse needed.
+Maybe an example will help. When using a Markdown editor, to create a header, you just type a `#` symbol and a space followed by your header text. No mouse highlighting is needed, just a couple extra characters and your desired text.
 
-For example, to create a header, you could add a `#` symbol and space before your header:
+So basically, you just enter something like this:  
 `# My New Document`
-
-MS Word now supports Markdown, though it's really the workflow Markdown offers through plain text eitors that makes it so appealing.
 
 - [Okay I get it, tell me more about Entwine.](#how-entwine-works)
 
