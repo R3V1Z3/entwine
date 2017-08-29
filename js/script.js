@@ -3,7 +3,8 @@ var TOC = [];
 
 // get URL parameters
 let params = (new URL(location)).searchParams;
-var path = window.location.pathname.split('index.html')[0];
+var path = '/' + window.location.hostname.split('.')[0];
+path += '/' + window.location.pathname.split('/')[2] + '/';
 
 // set default options
 var options = {
@@ -473,8 +474,8 @@ jQuery(document).ready(function() {
         // click event for local links
         $('a[href*=#]').click(function() {
             var target = $(this).attr('href');
-            $('.section.current').stop( true, true ).addClass('old').removeClass('current');
-            $('.section' + target).stop( true, true ).removeClass('old').addClass('current');
+            $('.section.current').addClass('old').removeClass('current');
+            $('.section' + target).removeClass('old').addClass('current');
         });
         
         // commmand count
