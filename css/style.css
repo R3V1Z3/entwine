@@ -17,7 +17,7 @@
 * {
   margin: 0;
   padding: 0;
-  line-height: 110%;
+  line-height: 120%;
 }
 
 #wrapper * {
@@ -133,7 +133,7 @@ a {
 
 .section.old {
   mix-blend-mode: color-burn;
-  animation: fadeout 1.5s ease-in-out;
+  animation: fadeout 1s ease-in-out;
 }
 
 .section.current {
@@ -169,6 +169,20 @@ a {
 /* ------------------------------------------------------------------------ */
 
 /* Info panel */
+
+#info .entwine {
+    text-shadow: 0 2px 2px aliceblue;
+}
+
+#info .entwine:before {
+  content: "|.,.).{.,.(,..|..i,.||,.,.";
+  font-size: 0.7em;
+  position: absolute;
+  color: green;
+  top: 16px;
+  text-shadow: 0 2px 2px lightcoral;
+  pointer-events: none;
+}
 
 #info * {
   font-family: 'Fredericka the Great', cursive;
