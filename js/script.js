@@ -4,7 +4,7 @@ var TOC = [];
 // get URL parameters
 let params = (new URL(location)).searchParams;
 var path = '/' + window.location.hostname.split('.')[0];
-path += '/' + window.location.pathname.split('/')[2] + '/';
+path += window.location.pathname;
 
 // set default options
 var options = {
@@ -216,7 +216,6 @@ jQuery(document).ready(function() {
         render_info();
         render_extra();
         jump_to_hash();
-        $('.section.header').addClass('current');
         register_events();
         
         // hide selectors at start
@@ -318,10 +317,10 @@ jQuery(document).ready(function() {
         // now with document rendered, jump to user provided url hash link
         var hash = location.hash;
         if( hash && $(hash).length > 0 ) {
-            // scroll to location
-            $('body').animate({
-                scrollTop: $(hash).offset().top
-            });
+            // go to location
+            $('.section' + hash).addClass('current');
+        } else {
+            $('.section.header').addClass('current');
         }
     }
     
