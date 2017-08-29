@@ -370,8 +370,8 @@ jQuery(document).ready(function() {
     function render_info() {
         
         var content = '';
-        content += '<a id="github-fork" href="https://github.com' + path + '#entwine">'
-        content += '<img style="position: absolute; top: 0; right: 0; border: 0;" src="//ugotsta.github.io/images/fork-white.png" alt="Fork me on GitHub"></a>';
+        content += '<a class="github-fork-ribbon" href="//github.com' + path + '#entwine" title="Fork me on GitHub">Fork me on GitHub</a>';
+        
         content += '<h1 class="entwine">Entwine</h1>';
         content += '<div id="command-count">.section total:</div>';
         content += '</br>';
@@ -379,7 +379,7 @@ jQuery(document).ready(function() {
         content += 'View this file:</br>';
         content += '<a id="gist-source" href="https://github.com' + path;
         content += 'master/README.md" target="_blank">↪</a>';
-        content += '<span id="gist-url" class="selector-toggle">▼ README.md</span>';
+        content += '<span id="gist-url" class="selector-toggle">README.md ▾</span>';
         content += '<div id="gist-selector" class="selector">';
         content += '<input id="gist-input" type="text" placeholder="Gist ID" />';
         
@@ -394,7 +394,7 @@ jQuery(document).ready(function() {
         content += 'CSS Theme:<br/>';
         content += '<a id="css-source" href="https://github.com' + path;
         content += 'blob/master/css/style.css" target="_blank">↪</a>';
-        content += '<span id="css-url" class="selector-toggle">▼ Default (style.css)</span>';
+        content += '<span id="css-url" class="selector-toggle">Default (style.css) ▾</span>';
         content += '<div id="css-selector" class="selector">';
         content += '<input id="css-input" type="text" placeholder="Gist ID for CSS theme" />';
         
@@ -422,7 +422,7 @@ jQuery(document).ready(function() {
         var url = '';
         if (param['gist'] != 'default') {
             url = 'https://gist.github.com/' + param['gist'];
-            $('#gist-url').text('▼ ' + param['gist_filename']);
+            $('#gist-url').text(param['gist_filename'] + ' ▾');
         } else {
             url = 'https://github.com' + path + 'blob/master/README.md';
         }
@@ -430,8 +430,7 @@ jQuery(document).ready(function() {
         
         if (param['css'] != 'default') {
             url = 'https://gist.github.com/' + param['css'];
-            $('#css-url').text('▼ ' + param['cssfilename']);
-            console.log('cssfilename: ' + param['cssfilename']);
+            $('#css-url').text(param['cssfilename'] + ' ▾');
         } else {
             url = 'https://github.com' + path + 'blob/master/css/style.css';
         }

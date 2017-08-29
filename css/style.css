@@ -20,15 +20,9 @@
   line-height: 120%;
 }
 
-#wrapper * {
-  font-family: 'Fredericka the Great', serif;
-}
 
 body, html {
-  border: 0;
-  outline: 0;
   vertical-align: baseline;
-  background-color: #FFFEFB;
   top: 0;
   bottom: 0;
   left: 0;
@@ -36,6 +30,11 @@ body, html {
   margin: auto;
   position: absolute;
   overflow: hidden;
+}
+
+body {
+  font-family: 'Fredericka the Great', serif;
+  background-color: #FFFEFB;
 }
 
 a {
@@ -59,25 +58,28 @@ a {
 /* Section */
 
 .section {
-  border: 3px double rgba(0,0,0,0.25);
   position: absolute;
   max-width: 960px;
   min-width: 600px;
   max-height: 600px;
   min-height: 400px;
-  overflow: scroll;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   padding: 20px;
-  box-shadow: inset 0 0 30px rgba(0,0,0,0.5),
-                    0 0 20px rgba(255,255,255,0.25);
-  background: #FFF9ED;
   font-size: 140%;
   margin: auto;
   width: 50%;
   height: 30%;
+
+}
+
+#entwine .section {
+  background: #FFF9ED;
+  border: 3px double rgba(0,0,0,0.25);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.5),
+                    0 0 20px rgba(255,255,255,0.25);
 }
 
 .section .content {
@@ -108,7 +110,7 @@ a {
   list-style: none;
 }
 
-#wrapper a.handle {
+a.handle {
   font-family: 'Amatic SC', cursive;
   color: rgba(0,0,0,0.65);
 }
@@ -128,7 +130,7 @@ a {
 }
 
 .section:not(.current) {
-  opacity:0.025;
+  opacity: 0;
 }
 
 .section.old {
@@ -202,7 +204,7 @@ a {
   width: 300px;
   height: 470px;
   box-shadow: inset 0 0 20px rgba(0,0,0,0.45);
-  padding: 10px;
+  padding: 10px 18px;
   border-left: 3px double white;
   border-bottom: 3px double white;
   font-size: 120%;
@@ -220,6 +222,44 @@ a {
   box-shadow: 0 0 6px rgba(255,255,100,0.25);
 }
 
+/* GitHub Ribbon */
+#info a.github-fork-ribbon:hover {
+  background: none;
+}
+
+#info a.github-fork-ribbon:before {
+  content: "";
+  padding: .38em 0;
+  background-color: #5B6C8A;
+  background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,0)),to(rgba(0,0,0,0.15)));
+  background-image: -webkit-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));
+  background-image: -moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));
+  background-image: -ms-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));
+  background-image: -o-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));
+  background-image: linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.15));
+  -webkit-box-shadow: 0 0.15em 0.23em 0 rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 .15em .23em 0 rgba(0,0,0,0.5);
+  box-shadow: 0 0.15em 0.23em 0 rgba(0,0,0,0.5);
+  pointer-events: auto;
+}
+
+#info a.github-fork-ribbon:after {
+  content: attr(title);
+  color: #fff;
+  font: 700 1em "Fredericka the Great",sans-serif;
+  line-height: 1.54em;
+  text-decoration: none;
+  text-shadow: 0 -0.08em rgba(0,0,0,0.5);
+  text-align: center;
+  text-indent: 0;
+  padding: .15em 0;
+  margin: .15em 0;
+  border-width: .08em 0;
+  border-style: dotted;
+  border-color: #fff;
+  border-color: rgba(255,255,255,0.7);
+}
+
 #info h1 {
   margin: 0;
 }
@@ -227,7 +267,6 @@ a {
 #info #gist-url,
 #info #css-url {
   font-size: 0.9em;
-  background: rgba(255,255,255,0.15);
   padding-left: 4px;
   padding-right: 4px;
   border-radius: 3px;
@@ -244,12 +283,18 @@ a {
   box-shadow: 0 0 6px rgba(255,255,100,0.25);
 }
 
+#info #toc,
+#info #gist-url,
+#info #css-url {
+  background-color: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+}
+
 #info #toc {
-  max-height: 200px;
+  max-height: 150px;
   overflow-y: scroll;
-  background-color: rgb(255, 255, 255);
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 5px;
+  padding: 4px 8px;
 }
 
 #info #toc a,
@@ -283,12 +328,6 @@ a {
   bottom: 20px;
   right: 20px;
   color: purple;
-}
-
-#info kbd {
-  font-weight: bold;
-  color: #000;
-  font-size: 1em;
 }
 
 #info #hide:hover {
@@ -363,15 +402,15 @@ form {
 kbd {
   display: inline-block;
   padding: 3px 5px;
-  font-size: 11px;
   line-height: 10px;
-  color: #444d56;
   vertical-align: middle;
-  background-color: #fafbfc;
-  border: solid 1px #c6cbd1;
-  border-bottom-color: #959da5;
-  border-radius: 3px;
-  box-shadow: inset 0 -1px 0 #959da5;
+  color: #000;
+  font-size: 1em;
+  font-weight: bold;
+  background: #F1F0ED;
+  border: 3px double rgba(0,0,0,0.35);
+  padding: 6px 10px;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.25);
 }
 
 /* Scrollbar styling */
