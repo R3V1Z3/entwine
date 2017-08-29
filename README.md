@@ -1,14 +1,29 @@
 # Entwine
-Entwine is a dead simple engine to play interactive (or Choose Your Own Adventure) stories created using Markdown through any capable browser.
+Entwine lets you play through interactive stories told via Markdown documents. It's little more than a viewer for Markdown documents, but one that lets you browse them in style, specifically designed to aid in progression through interactive stories.
 
-## Purpose
+- [What's this Markdown stuff?](#what-is-markdown)
+- [More about Entwine](#how-entwine-works)
 
-There are several outstanding, modern tools for easily creating interactive stories. Among the newer ones are [Twine](https://twinery.org/) and [Ficdown](https://ficdown.com/). So why another?
+## What is Markdown?
+Markdown is a simple language for plain text that uses a number of accessible symbols to make it super easy to create neatly formatted documents. With it, you can create text files with formatting for headers, emphasized content like bold or italicized text and lists and links to other resources.
 
-Twine is amazing but it's strangely tough to learn and files created with it are only accessible via Twine or after a complex compilation process. Ficdown is brilliant too, it relies on the popular Markdown formatting language so files are readily accessible. However, it handles anchor links in a special way that entails 
+- [I still don't get it. Can you explain more?](#markdown-example)
+- [Great, tell me more about Entwine.](#how-entwine-works)
 
-So what if we implement a method similar to Ficdown that maintains internal links, so that interactive games can be played using any capable Markdown viewer?
+## Markdown Example
+Maybe it'll help to explain it through a comparison with Microsoft Word. Markdown is supported in nearly all modern text editors, including MS Word. However in Word, you'd normally type some text and then highlight and add bold or italic styling. In Markdown editors, you simply add a symbol before and maybe after your text.
 
-That's the goal of this project. To rely on the popular Markdown formatting language for the ultimate in accessibility.
+For example, to create a header, you could add a `#` symbol and space before your header:
+`# My New Document`
 
-Worthy mentions: https://github.com/Ubersmake/Adventure
+- [Okay I get it, tell me more about Entwine.](#how-entwine-works)
+
+## How Entwine Works
+Entwine is really just a viewer for Markdown documents, such as this one, for example. This document is just a Markdown formatted file with a bunch of headers and anchor links pointing to those headers. A Markdown document reader lets you click links to go to those headers. That's really all Entwine does.
+
+- [Okay, why should I use it?](#designed-for-elegance)
+
+## Designed for Elegance
+You can use any capable reader for browsing through Markdown documents. In fact, you can view Markdown documents right through free services like GitHub Gist where this document is stored. So why use Entwine?
+
+Entwine is designed for interactive storytelling. In general, it displays content on an as-needed basis, letting you progress through an elegant interface that can be configured for the story being told.
