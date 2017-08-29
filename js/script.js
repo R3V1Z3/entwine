@@ -473,9 +473,8 @@ jQuery(document).ready(function() {
         // click event for local links
         $('a[href*=#]').click(function() {
             var target = $(this).attr('href');
-            console.log(target);
-            $('.section.current').removeClass('current');
-            $('.section' + target).addClass('current');
+            $('.section.current').stop( true, true ).addClass('old').removeClass('current');
+            $('.section' + target).stop( true, true ).removeClass('old').addClass('current');
         });
         
         // commmand count
