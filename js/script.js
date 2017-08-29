@@ -370,9 +370,9 @@ jQuery(document).ready(function() {
     function render_info() {
         
         var content = '';
-        content += '<a id="github-fork" href="https://github.com' + path + '#cheats">'
+        content += '<a id="github-fork" href="https://github.com' + path + '#entwine">'
         content += '<img style="position: absolute; top: 0; right: 0; border: 0;" src="//ugotsta.github.io/images/fork-white.png" alt="Fork me on GitHub"></a>';
-        content += '<h1 class="cheats">CHEATS</h1>';
+        content += '<h1 class="entwine">Entwine</h1>';
         content += '<div id="command-count">.section total:</div>';
         content += '</br>';
         content += '<div id="gist-details">';
@@ -383,7 +383,7 @@ jQuery(document).ready(function() {
         content += '<div id="gist-selector" class="selector">';
         content += '<input id="gist-input" type="text" placeholder="Gist ID" />';
         
-        content += '<a href="https://github.com/Ugotsta/cheats/blob/master/README.md" target="_blank">↪</a>';
+        content += '<a href="https://github.com' + path + 'blob/master/README.md" target="_blank">↪</a>';
         content += '<span id="default">Default (README.md)</span><br/>';
         
         // Example Gist list
@@ -398,7 +398,7 @@ jQuery(document).ready(function() {
         content += '<div id="css-selector" class="selector">';
         content += '<input id="css-input" type="text" placeholder="Gist ID for CSS theme" />';
         
-        content += '<a href="https://github.com/Ugotsta/cheats/blob/master/css/style.css" target="_blank">↪</a>';
+        content += '<a href="https://github.com' + path + 'blob/master/css/style.css" target="_blank">↪</a>';
         content += '<span id="default">Default (style.css)</span><br/>';
         
         // Example CSS list

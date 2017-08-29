@@ -11,10 +11,12 @@ Markdown is a simple language for plain text that uses a number of accessible sy
 - [Great, tell me more about Entwine.](#how-entwine-works)
 
 ## Markdown Example
-Maybe it'll help to explain it through a comparison with Microsoft Word. Markdown is supported in nearly all modern text editors, including MS Word. However in Word, you'd normally type some text and then highlight and add bold or italic styling. In Markdown editors, you simply add a symbol before and maybe after your text.
+Maybe it'll help to explain it through a comparison with Microsoft Word. In word, you'd normally type some text and then highlight and add bold or italic styling. In most Markdown editors, you simply add a symbol before and maybe after your typed text. No mouse needed.
 
 For example, to create a header, you could add a `#` symbol and space before your header:
 `# My New Document`
+
+MS Word now supports Markdown, though it's really the workflow Markdown offers through plain text eitors that makes it so appealing.
 
 - [Okay I get it, tell me more about Entwine.](#how-entwine-works)
 
