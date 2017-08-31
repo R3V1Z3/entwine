@@ -100,13 +100,13 @@ a {
   box-shadow: 0 0 6px rgba(255,255,100,0.25);
 }
 
-.section li a[href*="#"]::before {
+.content a[href*="#"]::before {
   content: "\27BA ";
   color: purple;
   opacity: 0.5;
 }
 
-.section a:not([href*="#"])::after {
+.content a:not([href*="#"])::after {
   border: 3px double rgba(255,0,255,0.5);
   margin-left: 6px;
   font-size: 0.5em;

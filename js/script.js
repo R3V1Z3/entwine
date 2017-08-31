@@ -6,6 +6,16 @@ let params = (new URL(location)).searchParams;
 var path = '/' + window.location.hostname.split('.')[0];
 path += window.location.pathname;
 
+var debug = '';
+
+var progress = [];
+if ( window.location.hash ) {
+    if ( window.localStorage.getItem('entwine_progress') != null) {
+        progress = window.localStorage.getItem('entwine_progress').split(',');
+    }
+}
+window.localStorage.setItem('entwine_progress', '');
+
 // set default options
 var options = {
     hide_info: false,
@@ -212,9 +222,10 @@ jQuery(document).ready(function() {
         tag_replace('kbd');
         tag_replace('i');
         tag_replace('<!--');
+        jump_to_hash();
         render_info();
         render_extra();
-        jump_to_hash();
+        
         register_events();
         handle_options();
         
@@ -288,6 +299,9 @@ jQuery(document).ready(function() {
         
         // add relevant classes to section headings
         $('.section ' + heading).addClass('heading');
+        
+        // add choice class to section li links
+        $('.content a[href*="#"]').addClass('choice');
     }
     
     // to help with incorrectly formatted Markdown (which is very common)
@@ -316,6 +330,16 @@ jQuery(document).ready(function() {
         return processed;
     }
     
+    function section_change() {
+        jump_to_hash();
+        // Back button is somehow triggering this twice
+        update_toc();
+    }
+    
+    function get_current_section_id() {
+        return $('.section.current').attr('id');
+    }
+    
     function jump_to_hash() {
         // remove Back button if it exists
         $('#back').clone().attr('id', 'back-animation').appendTo('.section.current').fadeOut(500, function() {
@@ -325,27 +349,30 @@ jQuery(document).ready(function() {
         
         var title = '';
         var hash = location.hash;
-        if( hash && $(hash).length > 0 ) {
+        var header_hash = '#' + $('.section.header').attr('id');
+        if( hash && $(hash).length > 0 && hash != header_hash ) {
             // go to location
             $('.section.current').addClass('old').removeClass('current');
-            $('.section' + hash).addClass('current');
+            $('.section' + hash).removeClass('old').addClass('current');
             title = $('.section.header a.handle').text();
             title += ' - ' + $('.section.current a.handle').text();
             
             // render Back button
-            $('.section.current').append('<a id="back">Back</a>').fadeIn();
+            $('.section.current').append('<a id="back">Back</a>');
             $( "#back" ).click(function() {
-                $(this).fadeOut();
                 window.history.back();
-                jump_to_hash();
+                section_change();
             });
         } else {
             $('.section.current').addClass('old').removeClass('current');
-            $('.section.header').addClass('current');
+            $('.section.header').removeClass('old').addClass('current');
             title = $('.section.header a.handle').text();
+            $('#back').remove();
         }
         document.title = title;
-        
+        var current = get_current_section_id();
+        if ( progress.indexOf(current) === -1 ) progress.push(current);
+        window.localStorage.setItem( 'entwine_progress', progress.join(",") );
     }
     
     // custom method to allow for certain tags like <i> and <kbd>
@@ -399,8 +426,7 @@ jQuery(document).ready(function() {
         content += '<h1 class="entwine">Entwine</h1>';
         content += '<div id="command-count">.section total:</div>';
         content += '</br>';
-        content += '<div id="gist-details">';
-        content += 'View this file:</br>';
+        content += '<div id="gist-details">View this file:</br>';
         content += '<a id="gist-source" href="https://github.com' + path;
         content += 'master/README.md" target="_blank">↪</a>';
         content += '<span id="gist-url" class="selector-toggle">README.md ▾</span>';
@@ -408,14 +434,13 @@ jQuery(document).ready(function() {
         content += '<input id="gist-input" type="text" placeholder="Gist ID" />';
         
         content += '<a href="https://github.com' + path + 'blob/master/README.md" target="_blank">↪</a>';
-        content += '<span id="default">Default (README.md)</span>';
+        content += '<span id="default">Default (README.md)</span><br/>';
         
         // Example Gist list
         content += example_content(example_gist);
         
         content += '</div></div>';
-        content += '<div id="css-details">';
-        content += 'CSS Theme:<br/>';
+        content += '<div id="css-details">CSS Theme:<br/>';
         content += '<a id="css-source" href="https://github.com' + path;
         content += 'blob/master/css/style.css" target="_blank">↪</a>';
         content += '<span id="css-url" class="selector-toggle">Default (style.css) ▾</span>';
@@ -423,7 +448,7 @@ jQuery(document).ready(function() {
         content += '<input id="css-input" type="text" placeholder="Gist ID for CSS theme" />';
         
         content += '<a href="https://github.com' + path + 'blob/master/css/style.css" target="_blank">↪</a>';
-        content += '<span id="default">Default (style.css)</span>';
+        content += '<span id="default">Default (style.css)</span><br/>';
         
         // Example CSS list
         content += example_content(example_css);
@@ -434,13 +459,13 @@ jQuery(document).ready(function() {
         content += '<div id="hide"><kbd>?</kbd> - show/hide this panel.</div>';
         $('#info').html(content);
         
-        // render TOC
-        render_toc_html();
+        // update TOC
+        update_toc();
         
         // command count
-        var current = $('#command-count').text();
-        current = current.split(' total')[0];
-        render_count(current);
+        var c = $('#command-count').text();
+        c = c.split(' total')[0];
+        render_count(c);
         
         // update gist and css urls
         var url = '';
@@ -461,29 +486,89 @@ jQuery(document).ready(function() {
         $('#css-source').attr('href', url);
     }
     
-    function render_toc_html() {
+    // returns an array of choices available for input section
+    function find_choices(section) {
+        var choices = [];
+        var $parent = $('.section#' + section);
+        var $choices = $parent.find('.content a.choice');
+        $choices.each(function(i, val){
+            var id = val['href'].split('#')[1];
+            choices.push(id);
+        });
+        return choices;
+    }
+    
+    // returns an array of sections that lead to input section
+    function find_sections_linking_here(section) {
+        // ex: path = ['living-quarters','great-hall','throne-room']
+        var path = [];
+        
+        // for each section
+        $('.section').each(function(){
+            var id = $(this).find('a.handle').attr('href').split('#')[1];
+            var choices = find_choices(id);
+            if ( choices.indexOf(section) != -1 ) {
+                path.push(id);
+            }
+        });
+        return path;
+    }
+    
+    // return an array of sections with choices leading from start to end
+    function find_path( start, end) {
+        // ex: path = ['living-quarters','great-hall','throne-room']
+        var path = [];
+        var linking_here = [];
+        linking_here = find_sections_linking_here(end);
+        
+        var traversed = [];
+        var current = linking_here[0];
+        var counter = 0;
+        var found = false;
+        while ( !found ) {
+            // return empty if path is unresolvable
+            if ( linking_here.length < 1 ) {
+                return [];
+            }
+            // check if current item is in traversed array
+            if ( traversed.indexOf(current) === -1 ) {
+                // it's not in the traversed array so lets traverse it
+                var x = find_sections_linking_here(current);
+            } else {
+                // remove_from_array(x);
+                // lets traverse this item
+            }
+            counter++;
+            if (counter > 3 ) found = true;
+        }
+        return path;
+    }
+    
+    // helper function to remove i from array
+    function remove_from_array(array, i) {
+        var index = array.indexOf(i);
+        if ( index > -1 ) {
+            array.splice( index, 1 );
+        }
+        return array;
+    }
+    
+    function update_toc() {
         var html = '';
         // iterate section classes and get id name to compose TOC
-        $( '#wrapper a.handle' ).each(function() {
-            var name = $(this).attr('name');
+        //$( '#wrapper a.handle' ).each(function() {
+        for ( var i = 0; i < progress.length; i++ ) {
+            var name = progress[i];
             html += '<a href="#' + name + '">';
-            html += $(this).text();
+            html += $('.section#' + progress[i] + ' a.handle').text();
             html += '</a>';
-        });
+        }
         $('#toc').html( html );
     }
     
     function render_extra () {
-        
         // add styling to header when viewing README file
-        if ( param['gist'] === 'default' ) $('#header h1').attr('id', 'title').addClass('cheats');
-        
-        // hide sections and toc reference when toggled
-        $( ".section .toggle" ).click(function() {
-            var name = $(this).parent().attr('name');
-            $('#' + name).hide();
-            render_toc_html();
-        });
+        if ( param['gist'] === 'default' ) $('#header h1').attr('id', 'title').addClass('entwine');
     }
     
     function render_count(element) {
@@ -496,33 +581,26 @@ jQuery(document).ready(function() {
         // handle history
         $(window).on('popstate', function (e) {
             // var state = e.originalEvent.state;
-            $('#back').fadeOut();
-            jump_to_hash();
-        });
-        
-        // click event for local links
-        $('a[href*=#]').click(function() {
-            $('#back').fadeOut();
-            jump_to_hash();
+            section_change();
         });
         
         // commmand count
         $('#command-count').click(function() {
             var count_array = ['.section','kbd','li','code'];
             // get current count option
-            var current = $('#command-count').text();
-            current = current.split(' total')[0];
+            var c = $('#command-count').text();
+            c = c.split(' total')[0];
             
             // find current item in count_array
-            var x = count_array.indexOf(current);
+            var x = count_array.indexOf(c);
             // increment current item
             if ( x === count_array.length - 1 ) {
                 x = 0;
             } else {
                 x += 1;
             }
-            current = count_array[x];
-            render_count(current);
+            c = count_array[x];
+            render_count(c);
         });
         
         // event handler to toggle info panel
