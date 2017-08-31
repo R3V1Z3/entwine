@@ -27,7 +27,6 @@ var param = {
     gist_filename: '',
     css: 'default',
     cssfilename: '',
-    showonly: false,
     preprocess: false
 };
 
@@ -75,8 +74,8 @@ jQuery(document).ready(function() {
                 o = o.split(',');
                 for ( var x = 0; x < o.length; x++) {
                     var option = o[x].split('] -->')[0].trim();
-                    var key = option.split('=')[0];
-                    var value = option.split('=')[1];
+                    var key = option.split('=')[0].trim();
+                    var value = option.split('=')[1].trim();
                     options[key] = value;
                 }
             }
@@ -217,9 +216,35 @@ jQuery(document).ready(function() {
         render_extra();
         jump_to_hash();
         register_events();
+        handle_options();
         
         // hide selectors at start
         $('#info .selector').hide();
+    }
+    
+    function handle_options() {
+        if( options['hide_info'] ) {
+            $('#info').remove();
+        }
+        if( options['hide_github_fork'] ) {
+            $('.github-fork-ribbon').remove();
+        }
+        if( options['hide_command_count'] ) {
+            $('#command-count').remove();
+        }
+        if( options['hide_gist_details'] ) {
+            $('#gist-details').remove();
+        }
+        if( options['hide_css_details'] ) {
+            $('#css-details').remove();
+        }
+        if( options['disable_hide'] ) {
+            $('#hide').remove();
+        }
+        if( options['hide_toc'] ) {
+            $('#toc').remove();
+            $('#info h3').remove();
+        }
     }
     
     function render(content) {
@@ -261,28 +286,6 @@ jQuery(document).ready(function() {
             $(this).nextUntil(heading).wrapAll('<div class="content"/>');
         });
         
-        // add alternate classes to paragraphs
-        var counter = 0;
-        $('.content').children().each(function() {
-            if ( $( this ).is('p') ) {
-                if (counter === 0) {
-                    $(this).addClass('alternate');
-                    // check previous element and add 'alternative' class as needed
-                    var $prev = $(this).prev();
-                    if ( $prev.is('h1') || $prev.is('h2') || $prev.is('h3') || $prev.is('h4') || $prev.is('h5') || $prev.is('h6')) {
-                        $prev.addClass('alternate');
-                    }
-                    // check next element and add 'alternative' class as needed
-                    var $next = $(this).next();
-                    if ( $next.is('ul') || $next.is('blockquote') || $next.is('code')  || $next.is('pre') ) {
-                        $next.addClass('alternate');
-                    }
-                }
-                counter += 1;
-                if (counter === 2) counter = 0;
-            }
-        });
-        
         // add relevant classes to section headings
         $('.section ' + heading).addClass('heading');
     }
@@ -314,14 +317,35 @@ jQuery(document).ready(function() {
     }
     
     function jump_to_hash() {
-        // now with document rendered, jump to user provided url hash link
+        // remove Back button if it exists
+        $('#back').clone().attr('id', 'back-animation').appendTo('.section.current').fadeOut(500, function() {
+            $(this).remove();
+        });
+        $('#back').remove();
+        
+        var title = '';
         var hash = location.hash;
         if( hash && $(hash).length > 0 ) {
             // go to location
+            $('.section.current').addClass('old').removeClass('current');
             $('.section' + hash).addClass('current');
+            title = $('.section.header a.handle').text();
+            title += ' - ' + $('.section.current a.handle').text();
+            
+            // render Back button
+            $('.section.current').append('<a id="back">Back</a>').fadeIn();
+            $( "#back" ).click(function() {
+                $(this).fadeOut();
+                window.history.back();
+                jump_to_hash();
+            });
         } else {
+            $('.section.current').addClass('old').removeClass('current');
             $('.section.header').addClass('current');
+            title = $('.section.header a.handle').text();
         }
+        document.title = title;
+        
     }
     
     // custom method to allow for certain tags like <i> and <kbd>
@@ -384,12 +408,12 @@ jQuery(document).ready(function() {
         content += '<input id="gist-input" type="text" placeholder="Gist ID" />';
         
         content += '<a href="https://github.com' + path + 'blob/master/README.md" target="_blank">↪</a>';
-        content += '<span id="default">Default (README.md)</span><br/>';
+        content += '<span id="default">Default (README.md)</span>';
         
         // Example Gist list
         content += example_content(example_gist);
         
-        content += '</div></div><br/>';
+        content += '</div></div>';
         content += '<div id="css-details">';
         content += 'CSS Theme:<br/>';
         content += '<a id="css-source" href="https://github.com' + path;
@@ -399,12 +423,12 @@ jQuery(document).ready(function() {
         content += '<input id="css-input" type="text" placeholder="Gist ID for CSS theme" />';
         
         content += '<a href="https://github.com' + path + 'blob/master/css/style.css" target="_blank">↪</a>';
-        content += '<span id="default">Default (style.css)</span><br/>';
+        content += '<span id="default">Default (style.css)</span>';
         
         // Example CSS list
         content += example_content(example_css);
         
-        content += '</div></div><br/>';
+        content += '</div></div>';
         content += '<h3>Table of Contents</h3>';
         content += '<div id="toc"></div>';
         content += '<div id="hide"><kbd>?</kbd> - show/hide this panel.</div>';
@@ -440,10 +464,10 @@ jQuery(document).ready(function() {
     function render_toc_html() {
         var html = '';
         // iterate section classes and get id name to compose TOC
-        $( '#wrapper .section' ).each(function() {
-            var name = $(this).attr('id');
+        $( '#wrapper a.handle' ).each(function() {
+            var name = $(this).attr('name');
             html += '<a href="#' + name + '">';
-            html += name;
+            html += $(this).text();
             html += '</a>';
         });
         $('#toc').html( html );
@@ -469,11 +493,17 @@ jQuery(document).ready(function() {
     
     function register_events() {
         
+        // handle history
+        $(window).on('popstate', function (e) {
+            // var state = e.originalEvent.state;
+            $('#back').fadeOut();
+            jump_to_hash();
+        });
+        
         // click event for local links
         $('a[href*=#]').click(function() {
-            var target = $(this).attr('href');
-            $('.section.current').addClass('old').removeClass('current');
-            $('.section' + target).removeClass('old').addClass('current');
+            $('#back').fadeOut();
+            jump_to_hash();
         });
         
         // commmand count
