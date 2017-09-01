@@ -280,7 +280,7 @@ jQuery(document).ready(function() {
         if ( $('#wrapper ' + header).length ) {
             $('#wrapper ' + header).each(function() {
                 var name = css_name( $(this).text() );
-                $(this).wrapInner('<a class="handle" name="' + name + '" href="#' + name + '"/>');
+                $(this).wrapInner('<a class="handle" name="' + name + '"/>');
                 $(this).nextUntil(heading).andSelf().wrapAll('<div class="section header" id="' + name + '"/>');
                 $(this).nextUntil(heading).wrapAll('<div class="content"/>');
             });
@@ -332,7 +332,6 @@ jQuery(document).ready(function() {
     
     function section_change() {
         jump_to_hash();
-        // Back button is somehow triggering this twice
         update_toc();
     }
     
@@ -341,6 +340,7 @@ jQuery(document).ready(function() {
     }
     
     function jump_to_hash() {
+        
         // remove Back button if it exists
         $('#back').clone().attr('id', 'back-animation').appendTo('.section.current').fadeOut(500, function() {
             $(this).remove();
@@ -361,7 +361,6 @@ jQuery(document).ready(function() {
             $('.section.current').append('<a id="back">Back</a>');
             $( "#back" ).click(function() {
                 window.history.back();
-                section_change();
             });
         } else {
             $('.section.current').addClass('old').removeClass('current');
@@ -369,10 +368,15 @@ jQuery(document).ready(function() {
             title = $('.section.header a.handle').text();
             $('#back').remove();
         }
+        
+        // update window title
         document.title = title;
         var current = get_current_section_id();
+        
+        // update browser variable with progress
         if ( progress.indexOf(current) === -1 ) progress.push(current);
         window.localStorage.setItem( 'entwine_progress', progress.join(",") );
+        
     }
     
     // custom method to allow for certain tags like <i> and <kbd>
@@ -505,7 +509,7 @@ jQuery(document).ready(function() {
         
         // for each section
         $('.section').each(function(){
-            var id = $(this).find('a.handle').attr('href').split('#')[1];
+            var id = $(this).find('a.handle').attr('name');
             var choices = find_choices(id);
             if ( choices.indexOf(section) != -1 ) {
                 path.push(id);
@@ -555,11 +559,14 @@ jQuery(document).ready(function() {
     
     function update_toc() {
         var html = '';
+        var class_html = '">';
         // iterate section classes and get id name to compose TOC
-        //$( '#wrapper a.handle' ).each(function() {
         for ( var i = 0; i < progress.length; i++ ) {
             var name = progress[i];
-            html += '<a href="#' + name + '">';
+            if ( progress[i] === get_current_section_id() ) {
+                class_html = '" class="current">';
+            } else class_html = '">';
+            html += '<a href="#' + name + class_html;
             html += $('.section#' + progress[i] + ' a.handle').text();
             html += '</a>';
         }
@@ -580,7 +587,6 @@ jQuery(document).ready(function() {
         
         // handle history
         $(window).on('popstate', function (e) {
-            // var state = e.originalEvent.state;
             section_change();
         });
         
