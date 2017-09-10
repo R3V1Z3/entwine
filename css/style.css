@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great|Amatic+SC|Share+Tech+Mono');
 
 @media print {
-  #info {
+  .info {
     display: none !important;
   }
   #wrapper {
@@ -15,26 +15,10 @@
 @page { size:8.5in 11in; margin: 0.25cm }
 
 * {
+  font-family: 'Fredericka the Great', serif;
   margin: 0;
   padding: 0;
   line-height: 120%;
-}
-
-
-body, html {
-  vertical-align: baseline;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  position: absolute;
-  overflow: hidden;
-}
-
-body {
-  font-family: 'Fredericka the Great', serif;
-  background-color: #FFFEFB;
 }
 
 a {
@@ -42,9 +26,8 @@ a {
   text-decoration: none;
 }
 
-#wrapper {
-  background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 70%, rgba(0,0,0,0.2) 87%, rgba(0,0,0,0.4) 100%);
-  background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 70%,rgba(0,0,0,0.2) 87%,rgba(0,0,0,0.4) 100%);
+.inner {
+  background-color: #FFFEFB;
   background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 70%,rgba(0,0,0,0.2) 87%,rgba(0,0,0,0.4) 100%);
   top: 0;
   bottom: 0;
@@ -53,6 +36,7 @@ a {
   margin: auto;
   position: absolute;
   overflow: hidden;
+  width: 100%;
 }
 
 /* Section */
@@ -72,10 +56,6 @@ a {
   margin: auto;
   width: 50%;
   height: 30%;
-
-}
-
-#entwine .section {
   background: #FFF9ED;
   border: 3px double rgba(0,0,0,0.25);
   box-shadow: inset 0 0 30px rgba(0,0,0,0.5),
@@ -122,6 +102,10 @@ a {
   list-style: none;
 }
 
+.section li::before {
+  content: "";
+}
+
 a.handle {
   font-family: 'Amatic SC', cursive;
   color: rgba(0,0,0,0.65);
@@ -157,8 +141,8 @@ a.handle {
   animation: fadein 1s ease-in-out;
 }
 
-#back,
-#back-animation {
+.section .back,
+.section .back-animation {
   position: absolute;
   right: 40px;
   bottom: 40px;
@@ -166,20 +150,20 @@ a.handle {
   cursor: pointer;
 }
 
-#wrapper #back-animation {
+.section .back-animation {
   opacity: 0.05;
   animation: fadeout 1.5s;
   pointer-events: none;
 }
 
-#back::before,
-#back-animation::before {
+.section .back::before,
+.section .back-animation::before {
   opacity: 0.5;
   content: "\293A";
 }
 
-#back::after,
-#back-animation::after {
+.section .back::after,
+.section .back-animation::after {
   content: '';
   box-shadow: none;
   border: none;
@@ -213,11 +197,11 @@ a.handle {
 
 /* Info panel */
 
-#info .entwine {
+.info .entwine {
     text-shadow: 0 2px 2px cornflowerblue;
 }
 
-#info .entwine:before {
+.info .entwine:before {
   content: "|.,.).{.,.(,..|..i,.||,.,.";
   font-size: 0.7em;
   position: absolute;
@@ -227,7 +211,7 @@ a.handle {
   pointer-events: none;
 }
 
-#info * {
+.info * {
   font-family: 'Fredericka the Great', cursive;
   text-shadow: none;
   color: rgba(0,0,0,0.85);
@@ -236,7 +220,7 @@ a.handle {
   text-transform: none;
 }
 
-#info {
+.info {
   background: #DAD4BB;
   position: fixed;
   float:right;
@@ -252,112 +236,95 @@ a.handle {
   z-index: 10;
 }
 
-#info a {
+.info a {
   color: purple;
   text-decoration: none;
 }
 
-#info a:hover {
+.info a:hover {
   color: purple;
   background: rgba(255,255,100,0.25);
   box-shadow: 0 0 6px rgba(255,255,100,0.25);
 }
 
-/* GitHub Ribbon */
-#info a.github-fork-ribbon:hover {
-  background: none;
-}
-
-#info a.github-fork-ribbon:before {
-  background-color: #5B6C8A;
-}
-
-#info a.github-fork-ribbon:after {
-  font: 700 1em "Fredericka the Great",sans-serif;
-  line-height: 1.54em;
-}
-
-#info h1 {
+.info h1 {
   margin: 0;
 }
 
-#info #gist-url,
-#info #css-url {
+.info .gist-url,
+.info .css-url {
   font-size: 0.9em;
   padding-left: 4px;
   padding-right: 4px;
   border-radius: 3px;
 }
 
-#info .fa {
-  font-family: 'FontAwesome';
-  color: purple;
-  vertical-align: middle;
-}
-
-#info .fa:hover {
-  background: rgba(255,255,100,0.25);
-  box-shadow: 0 0 6px rgba(255,255,100,0.25);
-}
-
-#info #toc,
-#info #gist-url,
-#info #css-url {
+.info .toc,
+.info .gist-url,
+.info .css-url {
   background-color: rgba(255, 255, 255, 0.5);
   border: 1px solid rgba(0,0,0,0.2);
   box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
 }
 
-#gist-details, #css-details {
+.gist-details, .css-details {
   margin-bottom: 15px;
 }
 
-#info #toc {
+.info .toc {
   max-height: 150px;
   overflow-y: scroll;
   padding: 4px 8px;
 }
 
-#info #toc a,
-#gist-url,
-#css-url {
+.info .toc a,
+.gist-url,
+.css-url {
   display: inline;
   font-size: 0.85em;
   color: purple;
   cursor: pointer;
 }
 
-#info #toc a {
-  display: block;
+#custom .info a:hover,
+.info .toc a:hover,
+.gist-url:hover,
+.css-url:hover {
   color: purple;
 }
 
-#info #toc a::before {
-  content: '';
-}
-
-#info #toc a.current {
-  pointer-events: none;
-  color: black;
-}
-
-#info #toc a.current::before {
-  content: "\27BA ";
-}
-
-#info #toc a:hover,
-#gist-url:hover,
-#css-url:hover {
+.info .toc a:hover,
+.gist-url:hover,
+.css-url:hover {
   background: rgba(255,255,100,0.25);
   box-shadow: 0 0 6px rgba(255,255,100,0.25);
 }
 
-#toc .hidden {
+.info .toc a {
+  display: block;
+  color: purple;
+  border: none;
+}
+
+.info .toc a::before {
+  content: '';
+}
+
+.info .toc a.current {
+  pointer-events: none;
+  color: black;
+}
+
+.info .toc a.current::before {
+  content: "\27BA ";
+}
+
+.toc .hidden {
   text-decoration: line-through;
   opacity: 0.5;
 }
 
-#info #hide {
+.info .hide {
   position: absolute;
   text-align: right;
   bottom: 20px;
@@ -365,7 +332,7 @@ a.handle {
   color: purple;
 }
 
-#info #hide:hover {
+.info .hide:hover {
   color: #000;
   cursor: pointer;
 }
@@ -375,7 +342,7 @@ form {
   align-items: center;
 }
 
-#command-count code {
+.info .element-count code {
   background: rgba(255,255,255,0.25);
   padding: 2px 4px;
   border-radius: 3px;
@@ -383,7 +350,7 @@ form {
 }
 
 /* Gist and CSS selector */
-#info .selector {
+.info .selector {
   position: absolute;
   top: 10px;
   left: 10px;
@@ -398,24 +365,24 @@ form {
   font-size: 0.85em;
 }
 
-#info #gist-url:hover, #info #css-url:hover {
+.info .gist-url:hover, .info .css-url:hover {
   background: rgba(255,255,100,0.25);
   box-shadow: 0 0 6px rgba(255,255,100,0.25);
 }
 
-#info .selector span {
+.info .selector span {
   color: #72617D;
 }
 
-#info .selector span:hover {
+.info .selector span:hover {
   color: #000;
 }
 
-#info .selector span {
+.info .selector span {
   margin-left: 6px;
 }
 
-#info .selector input {
+.info .selector input {
   margin-bottom: 6px;
   width: 95%;
   border-radius: 5px;
@@ -427,11 +394,14 @@ form {
   outline: 1px solid rgba(0,0,0,0.2);
 }
 
-#info .selector input::-webkit-input-placeholder,
-#info .selector input::-moz-placeholder {
+.info .selector input::-webkit-input-placeholder,
+.info .selector input::-moz-placeholder {
   color: rgba(0,255,0,0.15);
 }
 
+.info a.selector-toggle::after {
+  color: inherit;
+}
 
 /* Keypress styling */
 kbd {

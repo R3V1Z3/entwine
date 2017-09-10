@@ -57,10 +57,7 @@ Glad you asked. Entwine is part of a set of core projects utilizing the same the
 - [Vim Cheats](?gist=c002acb756d5cf09b1ad98494a81baa3) - Simple, intuitive cheatsheet for Vim
 
 ## Example CSS Themes
-- [Vintage Western](?css=686ce03846004fd858579392ca0db2c1) - Straight out the old west.
+- [Vintage](?css=686ce03846004fd858579392ca0db2c1) - Gritty style straight out the old west.
 - [Woodwork](?css=c604615983fc6cdd5ebdbdd053800298) - Dark but lively wood theme.
-- [Corkboard](?css=ada930f9dae1d0a8d95f41cb7a56d658) - Lively corkboard theme with CSS pins.
-- [Eerie](?css=7ac556b27c2cd34b00aa59e0d3621dea) - Eerie theme from [Eerie CSS](https://ugotsta.github.io/eerie-css/) project.
-- [Fiery Darkness](?css=c860958c04a53cd77575d5487ab1dec9) - Fiery red and yellow set against darkness.
 
 <!-- [options: parameters_disallowed=''] -->
