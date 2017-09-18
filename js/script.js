@@ -29,9 +29,9 @@ jQuery(document).ready(function() {
     }
     
     function update() {
-        var current = $('.section.current a.handle').text();
+        var current = $('.section.current').attr('id');
         // update window title
-        document.title = current;
+        document.title = $('.section.current a.handle').text();
         
         // update browser variable with progress
         if ( progress.indexOf(current) === -1 ) progress.push(current);
@@ -42,9 +42,25 @@ jQuery(document).ready(function() {
         
         // now show only those that user has progressed through
         for ( var i = 0; i < progress.length; i++ ) {
-            var name = $gd.clean_name(progress[i]);
-            $('a[href^="#' + name + '"]').show();
+            var id = progress[i];
+            $('a[href^="#' + id + '"]').show();
         }
+        
+        // add Back button if past first section
+        var header = $('.section.header').attr('id');
+        if ( current === header ) {
+            console.log('User at start.');
+            $('.back').remove();
+        } else {
+            // remove any prior Back buttons first
+            $('.back').remove();
+            // add new button
+            $('.section.current').append('<a class="back">Back</a>');
+            $( ".back" ).click(function() {
+                window.history.back();
+            });
+        }
+
     }
     
     // returns an array of choices available for input section
