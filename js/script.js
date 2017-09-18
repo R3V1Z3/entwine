@@ -9,52 +9,78 @@ jQuery(document).ready(function() {
                                 'callback': main
     } );
     var $gd = $('#wrapper').data('gitdown');
+    
+    // setup progress variable
+    var progress = [];
+    if ( window.location.hash ) {
+        if ( window.localStorage.getItem('entwine_progress') != null) {
+            progress = window.localStorage.getItem('entwine_progress').split(',');
+        }
+    }
+    window.localStorage.setItem('entwine_progress', '');
 
     function main() {
-        
-        // setup progress variable
-        var progress = [];
-        if ( window.location.hash ) {
-            if ( window.localStorage.getItem('entwine_progress') != null) {
-                progress = window.localStorage.getItem('entwine_progress').split(',');
-            }
-        }
-        window.localStorage.setItem('entwine_progress', '');
         
         // add choice class to section li links
         $('.section .content a[href*="#"]').addClass('choice');
         
-        // configure 
-        // get section names and set them in plugin
-        // $gd.set_sections(s)
-        
-        update_toc();
         register_events();
+        update();
     }
     
-    function update_toc() {
+    function update() {
+        var current = $('.section.current a.handle').text();
+        // update window title
+        document.title = current;
         
-        // add toggle buttons to sections
-        if ( $('.section .toggle').length < 1 ) {
-            $('.section a.handle').each(function() {
-                var t = $(this).html();
-                $(this).html( t + toggle_html );
-            });
+        // update browser variable with progress
+        if ( progress.indexOf(current) === -1 ) progress.push(current);
+        window.localStorage.setItem( 'entwine_progress', progress.join(",") );
+        
+        // hide all toc links
+        $('.toc a').hide();
+        
+        // now show only those that user has progressed through
+        for ( var i = 0; i < progress.length; i++ ) {
+            var name = $gd.clean_name(progress[i]);
+            $('a[href^="#' + name + '"]').show();
         }
-        
-        // add toggle buttons to toc
-        $( '.info .toc a' ).each(function() {
-            var t = $(this).html();
-            $(this).html( t + toggle_html );
-            var name = $(this).attr('name');
-            // hide toc links for hidden sections
-            if ( $('#' + name).is(':hidden') ){
-                $(this).addClass('hidden');
-            } else $(this).removeClass('hidden');
+    }
+    
+    // returns an array of choices available for input section
+    function find_choices(section) {
+        var choices = [];
+        var $parent = $('.section#' + section);
+        var $choices = $parent.find('.content a.choice');
+        $choices.each(function(i, val){
+            var id = val['href'].split('#')[1];
+            choices.push(id);
         });
+        return choices;
+    }
+    
+    // returns an array of sections that lead to input section
+    function find_sections_linking_here(section) {
+        // ex: path = ['living-quarters','great-hall','throne-room']
+        var path = [];
+        
+        // for each section
+        $('.section').each(function(){
+            var id = $(this).find('a.handle').attr('name');
+            var choices = find_choices(id);
+            if ( choices.indexOf(section) != -1 ) {
+                path.push(id);
+            }
+        });
+        return path;
     }
     
     function register_events() {
+        
+        // handle history
+        $(window).on('popstate', function (e) {
+            update();
+        });
         
         // hide sections and toc reference when toggled
         $( '.section .toggle' ).click(function() {

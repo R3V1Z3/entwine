@@ -50,14 +50,15 @@ Glad you asked. Entwine is part of a set of core projects utilizing the same the
 
 - [What link?](#example-css-themes)
 
-## Example Gists
-- [Alexa Cheats](?gist=2a06603706fd7c2eb5c93f34ed316354) - Fun commands for Amazon Alexa.
-- [Markdown resources](?gist=eba62d45c82d0767a5a0) - A great showcase for Markdownit's rendering capabilities.
-- [An exhibit of Markdown](?gist=deb74713e6aff8fdfce2) - Another great showcase for Markdown rendering.
-- [Vim Cheats](?gist=c002acb756d5cf09b1ad98494a81baa3) - Simple, intuitive cheatsheet for Vim
+# Examples <!-- {$gd_info} -->
+<!-- {$gd_help_ribbon} -->
+<!-- {$gd_element_count} -->
 
-## Example CSS Themes
-- [Vintage](?css=686ce03846004fd858579392ca0db2c1) - Gritty style straight out the old west.
-- [Woodwork](?css=c604615983fc6cdd5ebdbdd053800298) - Dark but lively wood theme.
+Example Gists <!-- {$gd_gist} -->
+- [An exhibit of Markdown](https://gist.github.com/deb74713e6aff8fdfce2)
+- [Vim Cheats](https://gist.github.com/c002acb756d5cf09b1ad98494a81baa3)
 
-<!-- [options: parameters_disallowed=''] -->
+Themes <!-- {$gd_css} -->
+
+<!-- {$gd_toc="Table of Contents"} -->
+<!-- {$gd_hide} -->

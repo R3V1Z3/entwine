@@ -210,6 +210,21 @@ a.handle {
   color: #FFF9ED;
 }
 
+#custom .info .selector {
+  border-radius: 0;
+  box-shadow: inset 0 0 16px rgba(0,0,0,0.3);
+  border: 3px double rgba(0,0,0,0.75);
+}
+
+.info .selector input {
+  border-radius: 0;
+  color: #333;
+  background: rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.4);
+  outline: 1px solid rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 12px rgba(0,0,0,0.2);
+}
+
 .info .toc a:hover,
 .gist-url:hover,
 .css-url:hover {
