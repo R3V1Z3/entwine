@@ -64,7 +64,7 @@ The following are some of the avaialable themes as examples of what is possible:
 <!-- {$gd_element_count} -->
 
 Example Gists <!-- {$gd_gist} -->
-- [An exhibit of Markdown](https://gist.github.com/deb74713e6aff8fdfce2)
+- [Await](https://gist.github.com/eb48e3ccd0e0fc6a502a8ebe02a38715)
 - [Vim Cheats](https://gist.github.com/c002acb756d5cf09b1ad98494a81baa3)
 
 Themes <!-- {$gd_css} -->
