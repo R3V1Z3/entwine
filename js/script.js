@@ -26,6 +26,25 @@ jQuery(document).ready(function() {
         
         register_events();
         update();
+        find_video_references();
+    }
+    
+    function find_video_references() {
+        $('.section a img').each(function(){
+            var alt = $(this).attr('alt');
+            //console.log(alt);
+            if ( alt === 'inner-background') {
+                var url = $(this).parent().attr('href');
+                var id = '';
+                if(url.match('http://(www.)?youtube|youtu\.be')){
+                    id = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
+                }
+                var iframe = '<iframe id="player" class="video-inner muted" src="https://www.youtube.com/embed/' + id + '?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=' + id  + '" frameborder="0" allowfullscreen></iframe>';
+                $('.inner').append(iframe);
+            }
+            // now remove original link
+            $(this).parent().remove();
+        });
     }
     
     function update() {
