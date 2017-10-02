@@ -192,39 +192,46 @@ a.handle {
   opacity: 0;
 }
 
-.section.old {
-  opacity: 0;
-  animation: fadeout 0.5s ease-in-out;
+.section.old,
+.section.old.lo {
+  animation: out 0.5s ease;
 }
 
-.section.current {
+.section.old.hi {
+  animation: in-reverse 0.5s ease;
+}
+
+.section.current,
+.section.current.hi {
   opacity: 1;
   z-index: 1;
-  animation: fadein 1s ease;
+  animation: in 0.5s ease;
+}
+
+.section.current.lo {
+  animation: out-reverse 0.5s ease;
 }
 
 /* ANIMATIONS */
 
-@keyframes fadein {
-    0% {
-        transform: scale(2);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+@keyframes in {
+  0% { transform: scale(2); opacity: 0; }
+100% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes fadeout {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(3);
-        opacity: 0;
-    }
+@keyframes out {
+  0% { transform: scale(1); opacity: 1; }
+100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes in-reverse {
+100% { transform: scale(2); opacity: 0; }
+0% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes out-reverse {
+  100% { transform: scale(1); opacity: 1; }
+0% { transform: scale(3); opacity: 0; }
 }
 
 /* ------------------------------------------------------------------------ */
