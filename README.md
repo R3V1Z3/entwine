@@ -11,12 +11,10 @@ Markdown is a simple language for plain text that practically eliminates the nee
 - [Great, tell me more about Entwine.](#how-entwine-works)
 
 ## Markdown Example
-Maybe an example will help. When using a Markdown editor, to create a header, you just type a `#` symbol and a space followed by your header text. No mouse highlighting is needed, just a couple extra characters and your desired text.
+Maybe an example will help. To create a list item in Markdown, just type a `-` symbol and a space followed by your content.
 
-So basically, you just enter something like this:  
-`# My New Document`
-
-It's that easy to create headers and other formatted content.
+For example, type this to create a list item:  
+`- Discuss new features.`
 
 - [Okay I get it, tell me more about Entwine.](#how-entwine-works)
 
