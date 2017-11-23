@@ -60,7 +60,18 @@ Interactive story engine
 Example Gists <!-- {$gd_gist} -->
 - [Await](https://gist.github.com/eb48e3ccd0e0fc6a502a8ebe02a38715)
 
+<!-- {$gd_collapsible_appearance} -->
+
+-----
+
 Themes <!-- {$gd_css} -->
 
+<!-- {$gd_slider_fontsize="110,50,300,1,%"} -->
+
+<!-- {$gd_theme_variables} -->
+
+<!-- {$gd_collapsible_end_appearance} -->
+
 <!-- {$gd_toc="Table of Contents"} -->
+
 <!-- {$gd_hide} -->
