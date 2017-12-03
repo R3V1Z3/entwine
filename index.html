@@ -11,6 +11,8 @@
     
     <script src="//ugotsta.github.io/gitdown/js/sanitizer.js"></script>
     <script src="//ugotsta.github.io/gitdown/js/gitdown.js"></script>
+
+    <script src="js/script.js"></script>
     
     <link rel="stylesheet" type="text/css" href="//ugotsta.github.io/gitdown/css/style.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -21,8 +23,18 @@
 <body id="custom">
     <div id="wrapper">
     </div>
+    <script>
+        const gd = new Entwine('#wrapper', {
+            title: 'Entwine',
+            content: 'README.md',
+            callback: done
+        });
 
-    <script src="js/script.js"></script>
+        function done() {
+            gd.start();
+            console.log('loaded');
+        }
+    </script>
 </body>
 
 </html>
