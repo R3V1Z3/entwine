@@ -23,6 +23,8 @@ function done() {
     register_events();
     update();
     find_video_references();
+    const contents_collapsible = document.querySelector('.info .field.collapsible.contents');
+    if ( contents_collapsible !== null ) contents_collapsible.classList.remove('collapsed');
 }
 
 function find_video_references() {
