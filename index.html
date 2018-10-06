@@ -6,14 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
     <script src="//code.jquery.com/jquery-latest.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/markdown-it/7.0.0/markdown-it.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js"></script>
-    
-    <script src="//ugotsta.github.io/gitdown/js/sanitizer.js"></script>
+
     <script src="//ugotsta.github.io/gitdown/js/gitdown.js"></script>
 
     <script src="js/script.js"></script>
-    
+
     <link rel="stylesheet" type="text/css" href="//ugotsta.github.io/gitdown/css/style.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -23,16 +21,16 @@
 <body id="custom">
     <div id="wrapper">
     </div>
+
     <script>
         const gd = new Entwine('#wrapper', {
             title: 'Entwine',
-            content: 'README.md',
-            callback: done
+            merge_content: true,
+            callback: ready
         });
-
-        function done() {
-            gd.start();
-            console.log('loaded');
+        function ready() {
+            gd.ready();
+            console.log('Callback executed.');
         }
     </script>
 </body>

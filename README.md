@@ -52,30 +52,67 @@ The following are some of the avaialable themes as examples of what is possible:
 - [Ghastly](https://gist.github.com/d1a6d5621b883bf6af886855d853d502) - Eerie off-shoot of Old Glory.
 - [Writing on the Wall](https://gist.github.com/241b47680c730c7162cb5f82d6d788fa) - The writing's on the cavern walls.
 
-# Examples <!-- {$gd_info} -->
-Interactive story engine
+# Entwine `🅖-nav`
 
-<!-- {$gd_help_ribbon} -->
+`ⓘ The code below designates a list of content sources the user will be able to select from in the app.`
 
-Example Gists <!-- {$gd_gist} -->
+content `🅖-datalist`
 - [Await](https://gist.github.com/eb48e3ccd0e0fc6a502a8ebe02a38715)
 
-<!-- {$gd_collapsible_appearance} -->
+## Appearance `🅖-collapsible`
 
------
+css `🅖-datalist`
+- [Writing on the Wall](https://gist.github.com/241b47680c730c7162cb5f82d6d788fa) - The writing's on the cavern walls.
 
-Themes <!-- {$gd_css} -->
+`🅖-theme-variables`
 
-<!-- {$gd_slider_fontsize="110,50,300,1,%"} -->
+## Effects `🅖-collapsible`
 
-<!-- {$gd_theme_variables} -->
+vignette-blend `🅖-select`
 
-<!-- {$gd_collapsible_end_appearance} -->
+vignette `🅖-slider="0.25,0,1,0.025"`
 
-<!-- {$gd_collapsible_contents} -->
+svg-filter `🅖-select`
+- *None
 
-<!-- {$gd_toc} -->
+---
 
-<!-- {$gd_collapsible_end_contents} -->
+brightness `🅖-slider="1,0,3,0.05"`
+contrast `🅖-slider="100%,0,300,1,%"`
+grayscale `🅖-slider="0%,0,100,1,%"`
+hue-rotate `🅖-slider="0deg,0,360,1,deg"`
+invert `🅖-slider="0%,0,100,1,%"`
+saturate `🅖-slider="100%,0,300,1,%"`
+sepia `🅖-slider="0%,0,100,1,%"`
+blur `🅖-slider="0px,0,20,1,px"`
 
-<!-- {$gd_hide} -->
+## Perspective `🅖-collapsible`
+
+scale `🅖-slider="0,1,5,0.1"`
+perspective `🅖-slider="1500px,0,2000,1,px"`
+originx `🅖-slider="50%,0,100,1,%"`
+originy `🅖-slider="50%,0,100,1,%"`
+rotatex `🅖-slider="0deg,0,360,1,deg"`
+rotatey `🅖-slider="0deg,0,360,1,deg"`
+scalez `🅖-slider="0,1,5,0.1"`
+rotatez `🅖-slider="0deg,0,360,1,deg"`
+translatez `🅖-slider="0px,-500,500,1,px"`
+
+## Dimensions `🅖-collapsible`
+
+width `🅖-slider="960px,4,4000,1,px"`
+height `🅖-slider="400px,4,2000,1,px"`
+padding `🅖-slider="10px,0,500,1,px"`
+inner-space `🅖-slider="100px,0,300,1,px"`
+outer-space `🅖-slider="0px,0,300,1,px"`
+offsetx `🅖-slider="0px,-4000,4000,1,px"`
+offsety `🅖-slider="0px,-4000,4000,1,px"`
+
+## Contents `🅖-collapsible`
+
+`🅖-toc`
+
+## Help `🅖-group`
+
+`🅖-help`
+`🅖-hide`
