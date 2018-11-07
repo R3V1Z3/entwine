@@ -1,4 +1,4 @@
-class Entwine extends GitDown {
+class Entwine extends BreakDown {
 
     constructor(el, options) {
         super(el, options);
@@ -241,7 +241,7 @@ class Entwine extends GitDown {
 
 }
 
-// class Entwine extends GitDown {
+// class Entwine extends BreakDown {
 //
 //     start() {
 //         const entwine = this;
