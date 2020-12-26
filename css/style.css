@@ -14,6 +14,41 @@
 
 @page { size:8.5in 11in; margin: 0.25cm }
 
+:root {
+  --bg: cornsilk;
+  /* --font: 'Baloo', sans-serif, serif, monospace; */
+
+  --width: 960px;
+  --height: 400px;
+  --fontsize: 140%;
+
+  --padding: 10px;
+
+  --inner-space: 100px;
+  --outer-space: 0px;
+
+  --vignette-blend: normal;
+
+  --brightness: 1;
+  --contrast: 100%;
+  --grayscale: 0%;
+  --hue-rotate: 0deg;
+  --invert: 0%;
+  --saturate: 100%;
+  --sepia: 0%;
+  --blur: 0px;
+
+  --scale: 1.0;
+  --perspective: 1500px;
+  --rotatex: 0deg;
+  --rotatey: 0deg;
+  --rotatez: 0deg;
+  --translatez: 0px;
+
+  --originx: 50%;
+  --originy: 50%;
+}
+
 * {
   font-family: 'Fredericka the Great', serif;
   margin: 0;
@@ -40,12 +75,54 @@ iframe.video-inner {
 }
 
 .inner {
-  position: absolute;
+  transform:
+    scale(var(--scale))
+    perspective(var(--perspective))
+    rotateX(var(--rotatex))
+    rotateY(var(--rotatey))
+    rotateZ(var(--rotatez))
+    translateZ(var(--translatez));
+  transform-origin: var(--originx) var(--originy);
+  transform-style: preserve-3d;
+  position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
   width: 100%;
+}
+
+.fx {
+  width: 2160px;
+  height: 3840px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  filter:
+    brightness(var(--brightness))
+    contrast(var(--contrast))
+    grayscale(var(--grayscale))
+    hue-rotate(var(--hue-rotate))
+    invert(var(--invert))
+    saturate(var(--saturate))
+    sepia(var(--sepia))
+    blur(var(--blur));
+}
+
+.vignette-layer {
+  mix-blend-mode: var(--vignette-blend);
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
 }
 
 .bd-default .inner::before {
@@ -79,6 +156,10 @@ iframe.video-inner {
 
 .section {
   position: absolute;
+  width: var(--width);
+  height: var(--height);
+  padding: var(--padding);
+  font-size: var(--fontsize);
   max-width: 960px;
   min-width: 600px;
   max-height: 600px;
@@ -90,8 +171,6 @@ iframe.video-inner {
   padding: 20px;
   font-size: 140%;
   margin: auto;
-  width: 50%;
-  height: 30%;
   overflow: hidden;
   background: #FFF9ED;
   border: 3px double rgba(0,0,0,0.25);
